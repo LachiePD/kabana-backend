@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Environment Variables (CRITICAL: Never leak your DB credentials)
+.env
+.env.local
+.env.*.local
+
+# Build Outputs
+dist/
+build/
+.next/
+
+# Testing
+coverage/
+*.lcov
+
+# Neovim / Editor specific
+.netrwhist
+apps/
+Session.vim
+*.swp
+*.swo
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Database (If you ever use a local sqlite/dump)
+*.sql
+*.log
