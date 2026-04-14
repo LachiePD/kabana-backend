@@ -7,7 +7,6 @@ const connectionString = process.env.DATABASE_URL;
 
 export class DbConnection {
   constructor() {
-    console.log(connectionString);
     this.pool = new Pool({ connectionString });
   }
 

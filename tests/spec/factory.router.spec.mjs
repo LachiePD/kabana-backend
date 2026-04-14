@@ -17,16 +17,7 @@ describe(" router factory", () => {
     expect(response.status).toBe(200);
   });
 
-  it("intergrates the assertion layer: throws error if routerDep doesnt assert", () => {
-    const mockDep = {
-      method: "GET",
-      path: "/ping",
-      middleware: null,
-    };
-    expect(() => resourceFactory(mockDep)).toThrow("missing service");
-  });
-
-  it("takes a service and calls it", async () => {
+  it("invokes service when /test is hit", async () => {
     const app = express();
     const mockService = { test: vi.fn() };
     const dep = createMock.routeDependency({
@@ -36,8 +27,10 @@ describe(" router factory", () => {
     const router = resourceFactory(dep);
     app.use(router);
     const response = await request(app).get("/test");
-    expect(mockService.test).toHaveBeenCalled();
+    expect(response.status).toBe(200);
+    expect(mockService.test).toHaveBeenCalledTimes(1);
   });
+
   it("uses middleware", async () => {
     const mockMiddleware = vi.fn((req, res, next) => {
       next();

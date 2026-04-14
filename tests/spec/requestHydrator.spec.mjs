@@ -4,7 +4,6 @@ import { createPayload } from "../utils/index.mjs";
 describe("the requestHydrator", () => {
   it("will parse valid data into a unified domain bundle", () => {
     const mockPayload = createPayload();
-    console.log(typeof mockPayload.params.domainId);
     const result = requestHydrator(mockPayload);
 
     expect(result).toEqual({
@@ -14,7 +13,6 @@ describe("the requestHydrator", () => {
       data: { name: "Lachlan" },
     });
   });
-  //TODO this test actually belongs in teh assert test
   it.each([
     {
       override: { params: { domainId: 1, contextId: "two" } },
