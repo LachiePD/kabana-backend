@@ -1,6 +1,6 @@
 import { describe, it, vi, expect } from "vitest";
-import { requestHydrator } from "./requestHydrator";
-import { createPayload } from "../test.utils/index.mjs";
+import { requestHydrator } from "#/requestHydrator/requestHydrator.mjs";
+import { createPayload } from "../utils/index.mjs";
 describe("the requestHydrator", () => {
   it("will parse valid data into a unified domain bundle", () => {
     const mockPayload = createPayload();

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { resourceFactory } from "./factory.router.mjs";
-import { createMock } from "../test.utils/index.mjs";
+import { createMock } from "#/tests/utils/index.mjs";
 import { assert } from "./assert.mjs";
 describe("the assertion layer of router factory", () => {
   const generateAssertedDep = (dep) => assert(dep);

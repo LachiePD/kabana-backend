@@ -1,6 +1,0 @@
-sqlQuery Generator
--will take entity/context/modifiers, then generate sql queries according.
-
-getByContext() Functionality
--need to learn how to write db functions, and deal with bridging tables on the db. Then I can do stuff like get developer (entity) , by project (context);
-

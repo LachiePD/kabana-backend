@@ -1,4 +1,4 @@
-import { createErrMiddleware } from "../test.utils/index.mjs";
+import { createErrMiddleware } from "../utils/index.mjs";
 import { describe, it, vi, expect } from "vitest";
 describe("the error handling middleware", () => {
   it("throws error when given a res object with errors", () => {

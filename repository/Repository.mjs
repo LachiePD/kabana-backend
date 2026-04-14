@@ -40,7 +40,6 @@ export class Repository {
   }
   async updateByEntity(entity, entityId, data) {
     //TODO, write tests for this nonsense.
-    //Theres a bug, where the entityID is being changed also, to the givenEntityId, this isnt very good
     //three params is a lot for a method, we need to think about breaking this apart
     assert(entity);
     const keys = Object.keys(data);

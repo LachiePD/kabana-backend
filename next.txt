@@ -1,7 +1,11 @@
-finish the implementation of the repo,
 the dbConnection should be returning rows object, or something . Right now the repo just returns whatever the dbConnectoin returns, could be ok
 
 
 
 
 next feature I would add would be the sql query generator. The scope needed to be reduced a bit, but now the repo is coupled to the db, it should rely on an abstraction, that being the sql generator function. I had a look into it, but it became complicated quickly, adding in modifiers and such blew it all up a bit.
+
+
+
+
+bugs: in repository, updateByEntity. The entityId is being updated in the backend, along with everything else. This shouldnt be happening, the id shouldnt be altered at all.

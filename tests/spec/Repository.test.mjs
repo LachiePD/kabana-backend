@@ -1,5 +1,5 @@
 import { describe, it, vi, expect } from "vitest";
-import { createMock } from "../test.utils/index.mjs";
+import { createMock } from "../utils/index.mjs";
 describe("Repository class", () => {
   it("gets created when called", () => {
     const repo = createMock.repository();
@@ -13,15 +13,15 @@ describe("Repository class", () => {
     const repo = createMock.repository();
   });
   it.each([
-    { fn: "getAllByEntity", params: ["project"] },
-    { fn: "getByEntityId", params: ["project", 1] },
-    { fn: "createByEntity", params: ["project", { name: "kabana" }] },
-    { fn: "deleteByEntity", params: ["project", 1] },
+    { fn: "getAllByEntity", params: ["projects"] },
+    { fn: "getByEntityId", params: ["projects", 1] },
+    { fn: "createByEntity", params: ["projects", { name: "kabana" }] },
+    { fn: "deleteByEntity", params: ["projects", 1] },
     {
       fn: "updateByEntity",
-      params: ["project", 1, { name: "stickyBrain" }],
+      params: ["projects", 1, { name: "stickyBrain" }],
     },
-    //{ fn: "getByContext", params: [{ entity: "project", id: 1 }, "developer"] },
+    //{ fn: "getByContext", params: [{ entity: "projects", id: 1 }, "developer"] },
   ])("method $fn calls the database correctly", async ({ fn, params }) => {
     console.log("need to implement getByContext functionality");
     const repo = createMock.repository();

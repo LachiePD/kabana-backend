@@ -1,4 +1,4 @@
-import { error } from "../middleware/index.mjs";
+import { error } from "#/middleware/index.mjs";
 import { vi } from "vitest";
 export const createErrMiddleware = (override = {}) => {
   const defaults = {

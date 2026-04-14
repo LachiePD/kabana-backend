@@ -1,4 +1,4 @@
-import { Repository } from "../repository/index.mjs";
+import { Repository } from "#/repository/index.mjs";
 import { vi } from "vitest";
 
 export const repository = (overload = {}) => {

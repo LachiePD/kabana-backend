@@ -1,6 +1,6 @@
 import { vi, expect, describe, it } from "vitest";
-import { resourceFactory } from "./factory.router.mjs";
-import { createMock } from "../test.utils/index.mjs";
+import { resourceFactory } from "#/routers/factory.router.mjs";
+import { createMock } from "../utils/index.mjs";
 import request from "supertest";
 import express from "express";
 describe(" router factory", () => {
