@@ -4,8 +4,8 @@ import { createMock } from "../utils/index.mjs";
 import request from "supertest";
 import express from "express";
 
-describe(" router factory", () => {
-  it("intergrates the assertion layer: throws error if routerDep doesnt assert", () => {
+describe("rejects invalid router configuration", () => {
+  it("intergrates the assertion function: throws error if routerDep doesnt assert", () => {
     const mockDep = {
       method: "GET",
       path: "/ping",
