@@ -1,6 +1,6 @@
 import { error } from "#/middleware/index.mjs";
 import { vi } from "vitest";
-export const createErrMiddleware = (override = {}) => {
+export const errMiddleware = (override = {}) => {
   const defaults = {
     req: {},
     res: { status: vi.fn().mockReturnThis(), json: vi.fn().mockReturnThis() },
