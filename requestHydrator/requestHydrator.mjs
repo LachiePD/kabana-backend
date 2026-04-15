@@ -1,4 +1,4 @@
-const createSafeHydrator = (assert) => (payload) => {
+export const requestHydrator = (payload) => {
   assert(payload);
   return {
     domainId: payload.params.domainId,
@@ -18,5 +18,3 @@ const assert = (p) => {
   if (!types.object(p.body)) throw new Error("invalid body");
   if (!types.object(p.query)) throw new Error("invalid query");
 };
-//TODO doesnt really make sense to have a HOF here, unless I merge all the assertion functions into one file....could be a good idea, would actually remove a lot of code that way;
-export const requestHydrator = createSafeHydrator(assert);
