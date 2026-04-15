@@ -14,4 +14,14 @@ describe("the error handling middleware", () => {
     expect(response.status).toBe(500);
     expect(response.body.message).toEqual("Error talking to backend");
   });
+  it("returned error code is relative", async () => {
+    const app = express();
+    app.get("/test", (req, res) => {
+      throw { code: 401, message: "test" };
+    });
+
+    app.use(error);
+    const response = await request(app).get("/test");
+    expect(response.status).toBe(401);
+  });
 });
