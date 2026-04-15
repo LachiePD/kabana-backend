@@ -1,8 +1,17 @@
-import { createErrMiddleware } from "../utils/index.mjs";
 import { describe, it, vi, expect } from "vitest";
+import { error } from "#/middleware/index.mjs";
+import request from "supertest";
+import express from "express";
 describe("the error handling middleware", () => {
-  it("throws error when given a res object with errors", () => {
-    const errResponse = createErrMiddleware();
-    expect(errResponse.res.status).toHaveBeenCalledWith(500);
+  it("throws error when given a res object with errors", async () => {
+    const app = express();
+    app.get("/errorTest", (req, res) => {
+      throw { code: 500, message: "Error talking to backend" };
+    });
+    app.use(error);
+
+    const response = await request(app).get("/errorTest");
+    expect(response.status).toBe(500);
+    expect(response.body.message).toEqual("Error talking to backend");
   });
 });
