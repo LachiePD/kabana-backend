@@ -7,7 +7,8 @@
     "vitest": "^4.1.0"
   },
   "scripts": {
-    "test": "vitest"
+    "dev": "NODE_ENV=development nodemon server.mjs",
+    "test": "NODE_ENV=test vitest"
   },
   "dependencies": {
     "dotenv": "^17.3.1",

@@ -1,9 +1,5 @@
-import dotenv from "dotenv";
-import { dirname, resolve } from "path";
-dotenv.config({ path: resolve(__dirname, "../.env") });
-import Pool from "pg-pool";
-
-const connectionString = process.env.DATABASE_URL;
+import { Pool } from "pg";
+const connectionString = process.env.CONNECTION_STRING;
 
 export class DbConnection {
   constructor() {
