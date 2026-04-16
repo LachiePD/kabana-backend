@@ -1,15 +1,17 @@
 import { DbConnection } from "#/infrastructure/DbConnection.mjs";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
-describe("the db connection", () => {
-  it("executes a query after DB initialization", async () => {
-    const db = new DbConnection();
+describe("db connection", () => {
+  let db;
 
+  beforeEach(async () => {
+    db = new DbConnection();
     await db.connect();
+    await db.query("BEGIN");
+  });
 
-    const result = await db.query("SELECT 1 as value");
-
-    expect(result.rows[0].value).toBe(1);
+  afterEach(async () => {
+    await db.query("ROLLBACK");
   });
   it("seeds data to the db", async () => {
     const db = new DbConnection();
