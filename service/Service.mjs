@@ -2,7 +2,7 @@ class Service {
   constructor(repo) {
     this.repo = repo;
   }
-  getAllByDomain(domain) {}
+  getAllByEntity(entityType) {}
   getByDomain(domainId) {}
   createByDomain(data, domain) {}
   deleteByDomain(domainId) {}
