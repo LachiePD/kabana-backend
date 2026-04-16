@@ -13,24 +13,22 @@ describe("db connection", () => {
   afterEach(async () => {
     await db.query("ROLLBACK");
   });
-  it("seeds data to the db", async () => {
+
+  it("executes a query after DB initialization", async () => {
     const db = new DbConnection();
     await db.connect();
+    const result = await db.query("SELECT 1 as value");
+    expect(result.rows[0].value).toBe(1);
+  });
+  it("cleans up the projects table", async () => {
+    await db.query("INSERT INTO projects (project_name) VALUES ($1)", [
+      "testProject",
+    ]);
 
-    const rows = await db.seed({
-      insert: {
-        query: "INSERT INTO projects (project_name) VALUES ($1)",
-        params: ["test"],
-      },
-      select: {
-        query: "SELECT * FROM projects",
-      },
-    });
+    await db.cleanup();
 
-    expect(rows).toHaveLength(1);
+    const result = await db.query("SELECT * FROM projects");
 
-    expect(rows[0]).toMatchObject({
-      project_name: "test",
-    });
+    expect(result.rows.length).toBe(0);
   });
 });
