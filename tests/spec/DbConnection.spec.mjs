@@ -11,4 +11,24 @@ describe("the db connection", () => {
 
     expect(result.rows[0].value).toBe(1);
   });
+  it("seeds data to the db", async () => {
+    const db = new DbConnection();
+    await db.connect();
+
+    const rows = await db.seed({
+      insert: {
+        query: "INSERT INTO projects (project_name) VALUES ($1)",
+        params: ["test"],
+      },
+      select: {
+        query: "SELECT * FROM projects",
+      },
+    });
+
+    expect(rows).toHaveLength(1);
+
+    expect(rows[0]).toMatchObject({
+      project_name: "test",
+    });
+  });
 });
