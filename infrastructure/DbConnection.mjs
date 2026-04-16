@@ -15,15 +15,8 @@ export class DbConnection {
     const data = await this.pool.query(query, params);
     return data;
   }
-  async seed({ insert, select }) {
-    try {
-      await this.query(insert.query, insert.params || []);
 
-      const result = await this.query(select.query);
-
-      return result.rows;
-    } finally {
-      await this.query("TRUNCATE TABLE projects RESTART IDENTITY CASCADE");
-    }
+  async cleanup() {
+    await this.pool.query("TRUNCATE TABLE projects RESTART IDENTITY CASCADE");
   }
 }
