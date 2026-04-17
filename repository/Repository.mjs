@@ -1,6 +1,5 @@
 import { assert } from "./assert.mjs";
 export class Repository {
-  a;
   //TODO think about the params of all the methods, most of them only should have 'entity' and 'entityId
   constructor(dbConnection) {
     if (!dbConnection) throw new Error("invalid dbConnection");
