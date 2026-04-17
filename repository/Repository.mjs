@@ -1,4 +1,6 @@
 import { assert } from "./assert.mjs";
+import { buildInsertQuery } from "./buildInsertQuery.mjs";
+
 export class Repository {
   //TODO think about the params of all the methods, most of them only should have 'entity' and 'entityId
   constructor(dbConnection) {
@@ -18,20 +20,10 @@ export class Repository {
 
   async createByEntity(entity, data) {
     assert(entity);
-    const columns = Object.keys(data)
-      .map((col) => `"${col}"`)
-      .join(", ");
-    const values = Object.values(data);
-    const placeholders = values.map((_, i) => `$${i + 1}`).join(", ");
-
-    const query = `
-    INSERT INTO "${entity}" (${columns})
-    VALUES (${placeholders})
-    RETURNING *;
-  `;
-
-    return await this.dbConnection.query(query, values);
+    const { query, values } = buildInsertQuery(entity, data);
+    return this.dbConnection.query(query, values);
   }
+
   async deleteEntity(entity, entityId) {
     assert(entity);
     const query = `DELETE FROM "${entity}" WHERE id = $1`;
