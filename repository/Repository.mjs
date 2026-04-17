@@ -11,7 +11,7 @@ export class Repository {
     const query = `SELECT * FROM "${entity}"`;
     return await this.dbConnection.query(query);
   }
-  async getByEntityId(entity, id) {
+  async getByEntity(type, id) {
     assert(entity);
     const query = `SELECT * FROM "${entity}" WHERE id = $1`;
     return await this.dbConnection.query(query, [id]);
@@ -33,7 +33,7 @@ export class Repository {
 
     return await this.dbConnection.query(query, values);
   }
-  async deleteByEntity(entity, entityId) {
+  async deleteEntity(entity, entityId) {
     assert(entity);
     const query = `DELETE FROM "${entity}" WHERE id = $1`;
     return await this.dbConnection.query(query, [entityId]);
