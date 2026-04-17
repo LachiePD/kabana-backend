@@ -2,7 +2,6 @@ import { assert } from "./assert.mjs";
 import { buildInsertQuery } from "./buildInsertQuery.mjs";
 
 export class Repository {
-  //TODO think about the params of all the methods, most of them only should have 'entity' and 'entityId
   constructor(dbConnection) {
     if (!dbConnection) throw new Error("invalid dbConnection");
     this.dbConnection = dbConnection;
