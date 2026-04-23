@@ -1,9 +1,6 @@
-import { Pool } from "pg";
-const connectionString = process.env.CONNECTION_STRING;
-
 export class DbConnection {
-  constructor() {
-    this.pool = new Pool({ connectionString });
+  constructor(pool) {
+    this.pool = pool;
   }
 
   async connect() {

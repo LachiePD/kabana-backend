@@ -1,17 +1,18 @@
 import { Router } from "express";
 import { assert } from "./assert.mjs";
 import { requestHydrator } from "../requestHydrator/index.mjs";
-export const resourceFactory = (dep) => {
-  assert(dep);
+export const resourceFactory = (config) => {
+  assert(config);
   const router = Router();
-  const method = dep.method.toLowerCase();
-  const path = dep.path;
-  const action = dep.action;
-  const service = dep.service;
+  const method = config.method.toLowerCase();
+  const path = config.path;
+  const action = config.action;
+  const service = config.service;
+  const hydrator = config.hydrator;
 
-  router[method](path, ...dep.middleware, async (req, res, next) => {
+  router[method](path, ...config.middleware, async (req, res, next) => {
     const payload = { params: req.params, query: req.query, body: req.body };
-    const data = requestHydrator(payload);
+    const data = hydrator(payload);
     const response = await service[action](data);
     res.status(200).json(response);
   });

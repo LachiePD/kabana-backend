@@ -1,0 +1,14 @@
+requestHydrator, createAccount:
+-throws if account name isnt a string✓
+-throws it account  name isnt present ✓
+-if input valid , returns data = {name, password} ✓
+
+
+AppError:
+-throws if missing status code ✓
+-throws if missing message ✓
+-throws if message/status === null ✓
+-throws if message is empty string ✓
+
+
+

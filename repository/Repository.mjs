@@ -6,32 +6,32 @@ export class Repository {
     if (!dbConnection) throw new Error("invalid dbConnection");
     this.dbConnection = dbConnection;
   }
-  async getAllByEntity(entity) {
-    assert(entity);
-    const query = `SELECT * FROM "${entity}"`;
+  async getAllByType(type) {
+    assert(type);
+    const query = `SELECT * FROM "${type}"`;
     return await this.dbConnection.query(query);
   }
   async getByEntity(type, id) {
-    assert(entity);
-    const query = `SELECT * FROM "${entity}" WHERE id = $1`;
+    assert(type);
+    const query = `SELECT * FROM "${type}" WHERE id = $1`;
     return await this.dbConnection.query(query, [id]);
   }
 
-  async createByEntity(entity, data) {
-    assert(entity);
-    const { query, values } = buildInsertQuery(entity, data);
+  async createByEntity(type, data) {
+    assert(type);
+    const { query, values } = buildInsertQuery(type, data);
     return this.dbConnection.query(query, values);
   }
 
-  async deleteEntity(entity, entityId) {
-    assert(entity);
-    const query = `DELETE FROM "${entity}" WHERE id = $1`;
-    return await this.dbConnection.query(query, [entityId]);
+  async deleteEntity(type, id) {
+    assert(type);
+    const query = `DELETE FROM "${type}" WHERE id = $1`;
+    return await this.dbConnection.query(query, [id]);
   }
-  async updateByEntity(entity, entityId, data) {
+  async updateByEntity(type, entityId, data) {
     //TODO, write tests for this nonsense.
     //three params is a lot for a method, we need to think about breaking this apart
-    assert(entity);
+    assert(type);
     const keys = Object.keys(data);
     const values = Object.values(data);
 
@@ -43,7 +43,7 @@ export class Repository {
     const idPlaceholder = `$${finalValues.length}`;
 
     const query = `
-    UPDATE ${entity}
+    UPDATE ${type}
     SET ${columns}
     WHERE id = ${idPlaceholder}
     RETURNING *; 
@@ -51,5 +51,5 @@ export class Repository {
 
     return await this.dbConnection.query(query, finalValues);
   }
-  async getByContext(contextData, entity) {}
+  async getByContext(contextData, type) {}
 }

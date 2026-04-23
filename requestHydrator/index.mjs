@@ -1,1 +1,3 @@
-export { requestHydrator } from "./requestHydrator.mjs";
+import { createAccount } from "./createAccount.mjs";
+
+export const requestHydrator = { createAccount };
