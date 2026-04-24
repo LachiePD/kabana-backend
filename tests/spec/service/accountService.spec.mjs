@@ -68,4 +68,36 @@ describe("AccountService", () => {
 
     expect(exists).toBe(false);
   });
+  describe("authentication between front and backend", () => {
+    beforeEach(() => {
+      repo = {
+        findByName: vi
+          .fn()
+          .mockResolvedValue({ name: "Winston", password: "CorrectPass123" }),
+        getAllByType: vi.fn().mockResolvedValue({
+          rows: [{ name: "Winston", password: "CorrectPass123" }],
+        }),
+      };
+
+      service = new AccountService(repo);
+    });
+
+    it("throws if given password does not match stored password", async () => {
+      const account = { name: "Winston", password: "WrongPassword" };
+      await expect(service.isPasswordCorrect(account)).rejects.toThrow(
+        "Passwords dont match",
+      );
+    });
+    it("throws if account name doesnt exist", async () => {
+      const account = { name: "test", password: "newPass123" };
+      await expect(service.login(account)).rejects.toThrow(
+        "Invalid credentials",
+      );
+    });
+    it("returns a jwt if the login credentials are correct", async () => {
+      const account = { name: "Winston", password: "CorrectPass123" };
+      const response = await service.login(account);
+      expect(response.toBeDefined());
+    });
+  });
 });

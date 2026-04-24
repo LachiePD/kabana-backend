@@ -12,3 +12,8 @@ AppError:
 
 
 
+AccountService, login:
+-will throw if given password doesnt match stored password ✓
+-throws if user doesnt exist ✓
+
+
