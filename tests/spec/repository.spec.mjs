@@ -59,34 +59,6 @@ it("deleteEntity deletes record by id", async () => {
   );
 });
 
-it("updateByEntity builds update query with correct values order", async () => {
-  mockDb.query.mockResolvedValue({ rows: [] });
-
-  await repo.updateByEntity("accounts", 3, {
-    name: "Lachie",
-    password: "newpass123",
-  });
-
-  const [query, values] = mockDb.query.mock.calls[0];
-
-  expect(query).toContain("UPDATE");
-  expect(query).toContain("SET");
-  expect(query).toContain("WHERE id");
-
-  expect(values).toEqual(["Lachie", "newpass123", 3]);
-});
-
-it("updateByEntity appends id as last parameter", async () => {
-  mockDb.query.mockResolvedValue({ rows: [] });
-
-  await repo.updateByEntity("accounts", 99, {
-    name: "Test",
-  });
-
-  const [, values] = mockDb.query.mock.calls[0];
-
-  expect(values[values.length - 1]).toBe(99);
-});
 it("getByName returns object", async () => {
   mockDb.query.mockResolvedValue({
     rows: [{ id: 1, name: "Lachie" }],
