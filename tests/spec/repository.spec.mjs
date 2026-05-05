@@ -1,5 +1,5 @@
 import { expect, it, vi, beforeEach } from "vitest";
-import { Repository } from "#/repository/Repository.mjs";
+import { AccountRepository } from "#/repository/index.mjs";
 
 let mockDb;
 let repo;
