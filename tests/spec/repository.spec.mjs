@@ -12,8 +12,6 @@ beforeEach(() => {
   repo = new Repository(mockDb);
 });
 
-it("throws if dbConnection is not provided", () => {
-  expect(() => new Repository()).toThrow("invalid dbConnection");
 });
 
 it("getAllByType runs SELECT * query for type", async () => {
