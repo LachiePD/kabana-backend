@@ -1,4 +1,3 @@
-import { assert } from "./assert.mjs";
 import { buildInsertQuery } from "./buildInsertQuery.mjs";
 
 export class AccountRepository {
@@ -12,7 +11,6 @@ export class AccountRepository {
     return await this.dbConnection.query(query);
   }
   async getById(id) {
-    assert(type);
     const query = `SELECT * FROM "${this.type}" WHERE id = $1`;
     return await this.dbConnection.query(query, [id]);
   }
@@ -34,7 +32,6 @@ export class AccountRepository {
   async updateByEntity(type, entityId, data) {
     //TODO, write tests for this nonsense.
     //three params is a lot for a method, we need to think about breaking this apart
-    assert(type);
     const keys = Object.keys(data);
     const values = Object.values(data);
 
