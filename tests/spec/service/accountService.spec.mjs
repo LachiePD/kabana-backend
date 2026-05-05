@@ -1,6 +1,6 @@
 import { expect, it, vi, beforeEach, describe } from "vitest";
 import { AccountService } from "#/service/AccountService.mjs";
-
+import bcrypt from "bcrypt";
 let repo;
 let service;
 
