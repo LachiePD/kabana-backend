@@ -5,13 +5,12 @@
 -missing password returns 400 ✓
 - duplicate name returns 409 ✓
 - created user has id ✓
--creating 2 different accounts will result in 2 accounts with different id's
 
 refactor:
 -move the account storage deeper, to the repo layer.
 
 2. User retrieves their account
--returns 404 if user doesnt exists
+-returns 404 if user doesnt exists ✓
 -on success, user is given account details.
 
 
