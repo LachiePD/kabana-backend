@@ -93,3 +93,15 @@ it("updateByEntity appends id as last parameter", async () => {
 
   expect(values[values.length - 1]).toBe(99);
 });
+it("getByName returns object", async () => {
+  mockDb.query.mockResolvedValue({
+    rows: [{ id: 1, name: "Lachie" }],
+  });
+  const account = { name: "Lachie" };
+  const response = await repo.getByName("accounts", account.name);
+  expect(response).toHaveProperties("id", "name");
+  expect(mockDb.query).toHaveBeenCalledWith(
+    "SELECT * from accounts where name = $1",
+    ["Lachie"],
+  );
+});
