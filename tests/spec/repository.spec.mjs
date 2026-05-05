@@ -9,24 +9,20 @@ beforeEach(() => {
     query: vi.fn(),
   };
 
-  repo = new Repository(mockDb);
-});
-
+  repo = new AccountRepository(mockDb);
 });
 
 it("getAllByType runs SELECT * query for type", async () => {
   mockDb.query.mockResolvedValue({ rows: [] });
 
-  await repo.getAllByType("accounts");
+  await repo.getAll();
 
   expect(mockDb.query).toHaveBeenCalledWith('SELECT * FROM "accounts"');
 });
 
 it("getByEntity fetches record by id", async () => {
   mockDb.query.mockResolvedValue({ rows: [] });
-
-  await repo.getByEntity("accounts", 42);
-
+  await repo.getById(42);
   expect(mockDb.query).toHaveBeenCalledWith(
     'SELECT * FROM "accounts" WHERE id = $1',
     [42],
@@ -41,7 +37,7 @@ it("createByEntity builds insert query and passes values", async () => {
     password: "example123",
   };
 
-  await repo.createByEntity("accounts", data);
+  await repo.create(data);
 
   expect(mockDb.query).toHaveBeenCalled();
 
@@ -55,7 +51,7 @@ it("createByEntity builds insert query and passes values", async () => {
 it("deleteEntity deletes record by id", async () => {
   mockDb.query.mockResolvedValue({ rows: [] });
 
-  await repo.deleteEntity("accounts", 7);
+  await repo.delete(7);
 
   expect(mockDb.query).toHaveBeenCalledWith(
     'DELETE FROM "accounts" WHERE id = $1',
