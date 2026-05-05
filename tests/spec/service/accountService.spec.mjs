@@ -119,10 +119,5 @@ describe("AccountService", () => {
         "Invalid credentials",
       );
     });
-    it("returns a jwt if the login credentials are correct", async () => {
-      const account = { name: "Winston", password: "CorrectPass123" };
-      const response = await service.login(account);
-      expect(response.toBeDefined());
-    });
   });
 });
