@@ -25,6 +25,7 @@ export class AccountService {
   }
 
   async userExists(accountName) {
+    //TODO, this is returning the whole table, we can just query the db for one entry
     const result = await this.repo.getAllByType(this.type);
     return result.rows.some((account) => account.name === accountName);
   }

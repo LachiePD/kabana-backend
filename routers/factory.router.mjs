@@ -15,6 +15,7 @@ export const resourceFactory = (config) => {
     const data = hydrator(payload);
     const response = await service[action](data);
     res.status(200).json(response);
+    //TODO we will need to create a responseHydrator, as the response will change if the backend is trying to set a cookie or not
   });
   return router;
 };
