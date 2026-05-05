@@ -71,15 +71,35 @@ describe("AccountService", () => {
 
     expect(exists).toBe(false);
   });
+  it("hashes password before storing account", async () => {
+    repo.getAllByType.mockResolvedValue({ rows: [] });
+
+    repo.createByEntity.mockResolvedValue({
+      rows: [{ id: 1 }],
+    });
+
+    await service.createAccount({
+      name: "Lachie",
+      password: "example123",
+    });
+
+    const savedPassword = await repo.createByEntity.mock.calls[0][1].password;
+    console.log(savedPassword);
+
+    expect(savedPassword).not.toBe("example123");
+    expect(savedPassword.startsWith("$2b$")).toBe(true);
+
+    const isValid = await bcrypt.compare("example123", savedPassword);
+
+    expect(isValid).toBe(true);
+  });
+
   describe("authentication between front and backend", () => {
     beforeEach(() => {
       repo = {
-        findByName: vi
-          .fn()
-          .mockResolvedValue({ name: "Winston", password: "CorrectPass123" }),
-        getAllByType: vi.fn().mockResolvedValue({
-          rows: [{ name: "Winston", password: "CorrectPass123" }],
-        }),
+        getAllByType: vi.fn(),
+        createByEntity: vi.fn(),
+        findByName: vi.fn(),
       };
 
       service = new AccountService(repo);
