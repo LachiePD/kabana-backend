@@ -34,8 +34,11 @@ export class AccountService {
     if (!exists) {
       throw new AppError({ message: "Invalid credentials", status: 401 });
     }
-    const correctPassword = await this.isPasswordCorrect(account.password);
+    const correctPassword = await this.isPasswordCorrect(account);
+    const token = jwt.sign({ data: account.name }, SECRET, { expiresIn: "1h" });
+    return { token };
   }
+
   async isPasswordCorrect(account) {
     const givenPassword = account.password;
     const foundAccount = await this.repo.findByName(account.name);
