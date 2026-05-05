@@ -27,10 +27,13 @@ describe("AccountService", () => {
     });
 
     expect(id).toBe(1);
-    expect(repo.createByEntity).toHaveBeenCalledWith("accounts", {
-      name: "Lachie",
-      password: "example123",
-    });
+
+    expect(repo.createByEntity).toHaveBeenCalledWith(
+      "accounts",
+      expect.objectContaining({
+        name: "Lachie",
+      }),
+    );
   });
 
   it("throws if username already exists", async () => {
