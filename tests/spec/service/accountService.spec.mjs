@@ -107,12 +107,14 @@ describe("AccountService", () => {
 
     it("throws if given password does not match stored password", async () => {
       const account = { name: "Winston", password: "WrongPassword" };
+      repo.findByName.mockResolvedValue({ name: "Winston", password: "1" });
       await expect(service.isPasswordCorrect(account)).rejects.toThrow(
         "Passwords dont match",
       );
     });
     it("throws if account name doesnt exist", async () => {
       const account = { name: "test", password: "newPass123" };
+      repo.getAllByType.mockResolvedValue({ rows: [] });
       await expect(service.login(account)).rejects.toThrow(
         "Invalid credentials",
       );
