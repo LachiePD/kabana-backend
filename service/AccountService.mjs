@@ -8,10 +8,6 @@ export class AccountService {
     this.type = "accounts";
   }
 
-  async findByName(name) {
-    return { password: "Password123" };
-  }
-
   async createAccount(account) {
     const exists = await this.userExists(account.name);
     if (exists) {

@@ -10,6 +10,17 @@ describe("authService", () => {
     };
     auth = new AuthService(repo);
   });
+  it("returns true when plaintext matches the hash", async () => {
+    const hashed = await bcrypt.hash("CorrectPass123", 10);
+    const result = await auth.isPasswordCorrect("CorrectPass123", hashed);
+    expect(result).toBe(true);
+  });
+  it("returns false when plaintext does not match the hash", async () => {
+    const hashed = await bcrypt.hash("CorrectPass123", 10);
+    const result = await auth.isPasswordCorrect("WrongPass456", hashed);
+    expect(result).toBe(false);
+  });
+
   it("returns a JWT with successful login attempt", async () => {
     const hashedPassword = await bcrypt.hash("CorrectPass123", 10);
     repo.getByName.mockResolvedValue({
