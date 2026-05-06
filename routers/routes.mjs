@@ -16,7 +16,7 @@ export const routeConfigs = [
   {
     method: "POST",
     path: "/accounts",
-    middleware: [],
+    middleware: [], // TODO: introduce assertion middleware layer and move input validation here from requestHydrator
     service: accountService,
     action: "createAccount",
     hydrator: requestHydrator.createAccount,
