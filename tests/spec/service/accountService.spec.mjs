@@ -21,12 +21,12 @@ describe("AccountService", () => {
       rows: [{ id: 1 }],
     });
 
-    const id = await service.createAccount({
+    const result = await service.createAccount({
       name: "Lachie",
       password: "example123",
     });
 
-    expect(id).toBe(1);
+    expect(result).toEqual({ id: 1 });
 
     expect(repo.create).toHaveBeenCalledWith(
       expect.objectContaining({
