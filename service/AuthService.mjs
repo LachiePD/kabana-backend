@@ -14,11 +14,11 @@ export class AuthService {
   async login(account) {
     const exists = await this.repo.getByName(account.name);
     if (!exists) {
-      throw new AppError({ message: "Invalid credentials", code: 404 });
+      throw new AppError({ message: "Invalid credentials", status: 404 });
     }
     const passwordCorrect = await this.isPasswordCorrect(account.password, exists.password);
     if (!passwordCorrect) {
-      throw new AppError({ message: "Invalid credentials", code: 401 });
+      throw new AppError({ message: "Invalid credentials", status: 401 });
     }
     const token = jwt.sign({ data: account.name }, SECRET, { expiresIn: "1h" });
     return token;
