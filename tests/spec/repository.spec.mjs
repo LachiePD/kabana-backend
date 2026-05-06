@@ -44,7 +44,7 @@ it("create builds insert query and passes values", async () => {
   const [query, values] = mockDb.query.mock.calls[0];
 
   expect(query).toContain("INSERT INTO");
-  expect(query).toContain('"accounts"');
+  expect(query.split(" ")).toContain("accounts");
   expect(values).toEqual(expect.any(Array));
 });
 
