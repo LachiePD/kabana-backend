@@ -20,13 +20,13 @@ export class AccountService {
     const hashedPassword = await bcrypt.hash(account.password, 10);
     const newAccount = { ...account, password: hashedPassword };
 
-    const result = await this.repo.createByEntity(this.type, newAccount);
+    const result = await this.repo.create(newAccount);
     return result.rows[0].id;
   }
 
   async userExists(accountName) {
     //TODO, this is returning the whole table, we can just query the db for one entry
-    const result = await this.repo.getAllByType(this.type);
+    const result = await this.repo.getAll();
     return result.rows.some((account) => account.name === accountName);
   }
 

@@ -1,7 +1,7 @@
 import express from "express";
 import { error } from "./middleware/index.mjs";
 import { AccountService } from "#/service/index.mjs";
-import { Repository } from "#/repository/index.mjs";
+import { AccountRepository } from "#/repository/index.mjs";
 import { DbConnection } from "#/infrastructure/index.mjs";
 import { requestHydrator } from "#/requestHydrator/index.mjs";
 import { AppError } from "#/error/AppError.mjs";
@@ -11,8 +11,8 @@ const connectionString = process.env.CONNECTION_STRING;
 export const createApp = (routeDeps) => {
   const pool = new Pool({ connectionString });
   const db = new DbConnection(pool);
-  const repo = new Repository(db);
-  const accountService = new AccountService(repo);
+  const AccountRepo = new AccountRepository(db);
+  const accountService = new AccountService(AccountRepo);
   const app = express();
 
   app.use(express.json());

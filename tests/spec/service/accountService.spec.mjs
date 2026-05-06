@@ -7,17 +7,17 @@ let service;
 describe("AccountService", () => {
   beforeEach(() => {
     repo = {
-      getAllByType: vi.fn(),
-      createByEntity: vi.fn(),
+      getAll: vi.fn(),
+      create: vi.fn(),
     };
 
     service = new AccountService(repo);
   });
 
   it("creates account and returns id", async () => {
-    repo.getAllByType.mockResolvedValue({ rows: [] });
+    repo.getAll.mockResolvedValue({ rows: [] });
 
-    repo.createByEntity.mockResolvedValue({
+    repo.create.mockResolvedValue({
       rows: [{ id: 1 }],
     });
 
@@ -28,8 +28,7 @@ describe("AccountService", () => {
 
     expect(id).toBe(1);
 
-    expect(repo.createByEntity).toHaveBeenCalledWith(
-      "accounts",
+    expect(repo.create).toHaveBeenCalledWith(
       expect.objectContaining({
         name: "Lachie",
       }),
@@ -37,7 +36,7 @@ describe("AccountService", () => {
   });
 
   it("throws if username already exists", async () => {
-    repo.getAllByType.mockResolvedValue({
+    repo.getAll.mockResolvedValue({
       rows: [{ name: "Lachie" }],
     });
 
@@ -53,7 +52,7 @@ describe("AccountService", () => {
   });
 
   it("detects existing user", async () => {
-    repo.getAllByType.mockResolvedValue({
+    repo.getAll.mockResolvedValue({
       rows: [{ name: "Lachie" }],
     });
 
@@ -63,7 +62,7 @@ describe("AccountService", () => {
   });
 
   it("returns false when user does not exist", async () => {
-    repo.getAllByType.mockResolvedValue({
+    repo.getAll.mockResolvedValue({
       rows: [],
     });
 
@@ -72,9 +71,9 @@ describe("AccountService", () => {
     expect(exists).toBe(false);
   });
   it("hashes password before storing account", async () => {
-    repo.getAllByType.mockResolvedValue({ rows: [] });
+    repo.getAll.mockResolvedValue({ rows: [] });
 
-    repo.createByEntity.mockResolvedValue({
+    repo.create.mockResolvedValue({
       rows: [{ id: 1 }],
     });
 
@@ -83,7 +82,7 @@ describe("AccountService", () => {
       password: "example123",
     });
 
-    const savedPassword = await repo.createByEntity.mock.calls[0][1].password;
+    const savedPassword = await repo.create.mock.calls[0][0].password;
     console.log(savedPassword);
 
     expect(savedPassword).not.toBe("example123");

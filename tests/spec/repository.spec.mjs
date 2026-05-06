@@ -64,8 +64,13 @@ it("getByName returns object", async () => {
     rows: [{ id: 1, name: "Lachie" }],
   });
   const account = { name: "Lachie" };
-  const response = await repo.getByName("accounts", account.name);
-  expect(response).toHaveProperties("id", "name");
+  const response = await repo.getByName(account.name);
+  expect(response).toEqual(
+    expect.objectContaining({
+      id: expect.anything(),
+      name: expect.anything(),
+    }),
+  );
   expect(mockDb.query).toHaveBeenCalledWith(
     "SELECT * from accounts where name = $1",
     ["Lachie"],
