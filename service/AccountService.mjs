@@ -29,25 +29,4 @@ export class AccountService {
     const result = await this.repo.getAll();
     return result.rows.some((account) => account.name === accountName);
   }
-
-  async login(account) {
-    const exists = await this.userExists(account.name);
-    if (!exists) {
-      throw new AppError({ message: "Invalid credentials", status: 401 });
-    }
-    const correctPassword = await this.isPasswordCorrect(account);
-    const token = jwt.sign({ data: account.name }, SECRET, { expiresIn: "1h" });
-    return { token };
-  }
-
-  async isPasswordCorrect(account) {
-    const givenPassword = account.password;
-    const foundAccount = await this.repo.getByName(account.name);
-    const foundPassword = foundAccount.password;
-    const isMatch = await bcrypt.compare(givenPassword, foundPassword);
-    if (!isMatch) {
-      throw new AppError({ status: 401, message: "Passwords dont match" });
-    }
-    return true;
-  }
 }
