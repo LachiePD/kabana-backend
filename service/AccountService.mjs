@@ -17,7 +17,7 @@ export class AccountService {
     const newAccount = { ...account, password: hashedPassword };
 
     const result = await this.repo.create(newAccount);
-    return result.rows[0].id;
+    return { id: result.rows[0].id };
   }
 
   async userExists(accountName) {
