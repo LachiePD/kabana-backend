@@ -16,7 +16,7 @@ export class AccountRepository {
   async create(data) {
     const columns = Object.getOwnPropertyNames(data);
     const values = Object.values(data);
-    const placeholders = values.map(_, (i) => `$${i + 1}`).join(", ");
+    const placeholders = values.map((_, i) => `$${i + 1}`).join(", ");
     const query = `INSERT INTO ${this.type} (${columns.join(", ")})
 	  VALUES (${placeholders})
 	  RETURNING *`;
