@@ -42,7 +42,7 @@ export class AccountService {
 
   async isPasswordCorrect(account) {
     const givenPassword = account.password;
-    const foundAccount = await this.repo.findByName(account.name);
+    const foundAccount = await this.repo.getByName(account.name);
     const foundPassword = foundAccount.password;
     const isMatch = await bcrypt.compare(givenPassword, foundPassword);
     if (!isMatch) {
