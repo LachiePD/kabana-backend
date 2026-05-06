@@ -16,7 +16,10 @@ export class AuthService {
     if (!exists) {
       throw new AppError({ message: "Invalid credentials", status: 404 });
     }
-    const passwordCorrect = await this.isPasswordCorrect(account.password, exists.password);
+    const passwordCorrect = await this.isPasswordCorrect(
+      account.password,
+      exists.password,
+    );
     if (!passwordCorrect) {
       throw new AppError({ message: "Invalid credentials", status: 401 });
     }
