@@ -7,7 +7,7 @@ export class AuthService {
     this.repo = repo;
   }
   async login(account) {
-    const exists = await this.repo.findByName("account", account.name);
+    const exists = await this.repo.getByName(account.name);
     if (!exists) {
       throw new AppError({ message: "Invalid credentials", code: 404 });
     }

@@ -1,6 +1,6 @@
 import express from "express";
 import { error } from "./middleware/index.mjs";
-import { AccountService } from "#/service/index.mjs";
+import { AccountService, AuthService } from "#/service/index.mjs";
 import { AccountRepository } from "#/repository/index.mjs";
 import { DbConnection } from "#/infrastructure/index.mjs";
 import { requestHydrator } from "#/requestHydrator/index.mjs";
@@ -14,6 +14,7 @@ export const createApp = (routeDeps) => {
   const db = new DbConnection(pool);
   const AccountRepo = new AccountRepository(db);
   const accountService = new AccountService(AccountRepo);
+  const authService = new AuthService(AccountRepo);
   const app = express();
 
   app.use(express.json());
@@ -24,7 +25,7 @@ export const createApp = (routeDeps) => {
   });
   app.post("/login", async (req, res) => {
     const safeInput = requestHydrator.login(req.body);
-    const { token } = await accountService.login(safeInput);
+    const token = await authService.login(safeInput);
     return res
       .status(200)
       .cookie("token", token, {
