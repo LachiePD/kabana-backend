@@ -1,7 +1,7 @@
 import { AppError } from "#/error/index.mjs";
 
-export const createAccount = (input = {}) => {
-  const { name, password } = input;
+export const createAccount = (payload) => {
+  const { name, password } = payload.body;
 
   const cleanName = typeof name === "string" ? name.trim() : name;
   const cleanPassword =
