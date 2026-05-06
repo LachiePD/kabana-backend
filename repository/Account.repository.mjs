@@ -23,6 +23,11 @@ export class AccountRepository {
     return this.dbConnection.query(query, values);
   }
 
+  async getByName(name) {
+    const query = "SELECT * from accounts where name = $1";
+    const response = await this.dbConnection.query(query, [name]);
+    return response.rows[0];
+  }
   async delete(id) {
     const query = `DELETE FROM "${this.type}" WHERE id = $1`;
     return await this.dbConnection.query(query, [id]);
