@@ -29,7 +29,7 @@ it("getByEntity fetches record by id", async () => {
   );
 });
 
-it("createByEntity builds insert query and passes values", async () => {
+it("create builds insert query and passes values", async () => {
   mockDb.query.mockResolvedValue({ rows: [{ id: 1 }] });
 
   const data = {
